@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="static/lib/bootstrap/css/bootstrap.css"> -->
+  <link rel="stylesheet" type="text/css" href="static/css/xtj.css">
+  <title>行通济人流管控系统</title>
+</head>
+<body>
+  <div class="map-box">
+    <div style="width:100%;height:100%;" id="heatmap"></div>
+  </div>
+  <div class="top-info-box">
+    <div class="top-info-bar">
+      <div id="info-carousel" class="carousel-self">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-box">
+    <a href="#" class=" hide-btn chart-close" >&times;</a>
+    <div class="chart" id="sceneChart"></div>
+  </div>
+  <div class="org-box">
+    <a href="#" class=" hide-btn chart-close" >&times;</a>
+    <div class="chart" id="orgChart"></div>
+  </div>
+
+  <div class="dashboard-list-btn show-dashboard-btn ">
+    <div class="btn-self">
+      <span class="  glyphicon glyphicon-chevron-right"></span>
+    </div>
+  </div>
+
+<div class="dashboard-charts-bar">
+  <div class="dashboard-list-btn hide-dashboard-btn">
+    <div class="btn-self">
+      <span class="  glyphicon glyphicon-chevron-left"></span>
+    </div>
+  </div>
+  <div class="dashboard-charts-contain">
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+    <div class="dashboard-chart-box"></div>
+  </div>
+</div>
+
+  <div class="container">
+    <nav class="navbar navbar-self navbar-inverse" role="navigation">
+      <div class=" row">
+        <div class="navbar-heade col-xs-2">
+          <a class="navbar-brand" href="#">行通济人流管控系统</a>
+        </div>
+        <div class="col-xs-offset-6 col-xs-4 ">
+          <ul class="nav navbar-nav pull-right">
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                内容展示 <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#" class="show-real-info">数据统计</a></li>
+                <li><a href="#" class="show-chart">图表统计</a></li>
+                <li><a href="#" class="hide-all">只显示热地图</a></li>
+              </ul>
+            </li>
+            <li ><a class="date-now" data-toggle="tooltip" data-placement="bottom" title="" style="font-size:16px;font-weight: bold;" href="#"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="main-box">
+      <div class="chart-box">
+
+      </div>
+    </div>
+    <div class="left-display-box">
+      <div class="data-block">
+        <a href="#" class=" hide-btn" >X</a>
+        <span class="data-title">在线人数</span>
+        <div class="number-box">
+          <ul id="onlineUserCount"></ul>
+        </div>
+      </div>
+
+      <div class="data-block">
+       <a href="#" class=" hide-btn" >X</a>
+       <span class="data-title">最近5分钟人数</span>
+       <div class="number-box">
+        <ul id="last5minCount"></ul>
+      </div>
+    </div>
+
+    <div class="data-block">
+     <a href="#" class=" hide-btn" >X</a>
+     <span class="data-title">最高峰人数</span>
+     <div class="number-box">
+      <ul id="maxCount"></ul>
+    </div>
+    <span id="top-value"></span>
+  </div>
+</div>
+</div>
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          标题
+        </h4>
+      </div>
+      <div class="modal-body">
+        内容
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+  <div id="tests" style="width:1000px;height:500px;">
+
+  </div>
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=OmnSiQFfgRDGaEMuk6PH79wSnVezypor&services=&t=20171031174121"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+  <script src="http://cdn-hangzhou.goeasy.io/goeasy.js "></script>
+  <script src="static/lib/socket/sockjs.js"></script>
+  <script src="static/lib/socket/stomp.js"></script>
+  <script src="static/lib/sa/sa-plug-in.js"></script>
+  <script src="static/js/xtj.js"></script>
+  <script>
+    // $("#test").sa_carousel()
+  </script>
+</body>
+</html>
