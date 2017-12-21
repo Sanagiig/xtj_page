@@ -960,7 +960,7 @@
       $(".date-now").html(time);
     },1000)
   }
-
+ 
   //自动请求，更新数据
   function autoRequest(){
     $.ajaxSetup({crossDomain: true, xhrFields: {withCredentials: true}});
