@@ -1160,7 +1160,7 @@
   function createGoEasy(){
     var goEasy = new GoEasy({appkey: 'BC-482710bf7914482a8e8ebee6842fe33d'}),
         pCount = 0,     //当前热地图发送的次数
-        pLimit = 13, //热地图 数据的数量
+        pLimit = 14, //热地图 数据的数量
         hotTempPoints =[];
 
 
