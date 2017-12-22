@@ -24,13 +24,14 @@
   var topInfoInterv,
       heatmapInterv,
       boxInterv,
-      showAlertTimeo;
+      showAlertTimeo,
+      bmapCenter = [113.104286,23.019903];
 
   //热地图初始设置
   var option = {
     animation:true,
     bmap:{
-      center: [113.122865,23.023341],
+      center: bmapCenter,
       zoom: 17,
       roam: false,
       mapStyle:{
@@ -203,7 +204,7 @@
       blurSize: 3
     },
     {
-      name:"通济桥",
+      name:"南面2楼外墙上",
       type:'effectScatter',
       showEffectOn: 'emphasis',
       rippleEffect: {
@@ -228,7 +229,7 @@
       },
 
       coordinateSystem: 'bmap',
-      data: [{name:"通济桥",value:[113.122865,23.023341,100]}],
+      data: [{name:"中心电房",value:[113.104286,23.019903,100]}],
       zlevel: 1
     },
     {
@@ -428,19 +429,28 @@
 };
 
   //区域ID 与经纬度的映射
+  // var areaMapped = [
+  //   {id:0,name:"test",ll:[113.133189,23.055251],show:false},
+  //   {id:1,name:"区域1",ll:[113.133189,23.025251],show:false},
+  //   {id:2,name:"区域2",ll:[113.129686,23.021925],show:false},
+  //   {id:3,name:"区域3",ll:[113.129578,23.024985],show:false},
+  //   {id:4,name:"区域4",ll:[113.128392,23.024968],show:false},
+  //   {id:5,name:"区域5",ll:[113.126704,23.024985],show:false},
+  //   {id:6,name:"区域6",ll:[113.12408,23.024918],show:false},
+  //   {id:7,name:"区域7",ll:[113.123074,23.024269],show:false},
+  //   {id:8,name:"区域8",ll:[113.122625,23.023222],show:false},
+  //   {id:9,name:"区域9",ll:[113.121817,23.022606],show:false},
+  //   {id:10,name:"区域10",ll:[113.121781,23.025666],show:false},
+  // ];
+
   var areaMapped = [
-    {id:0,name:"test",ll:[113.133189,23.055251],show:false},
-    {id:1,name:"区域1",ll:[113.133189,23.025251],show:false},
-    {id:2,name:"区域2",ll:[113.129686,23.021925],show:false},
-    {id:3,name:"区域3",ll:[113.129578,23.024985],show:false},
-    {id:4,name:"区域4",ll:[113.128392,23.024968],show:false},
-    {id:5,name:"区域5",ll:[113.126704,23.024985],show:false},
-    {id:6,name:"区域6",ll:[113.12408,23.024918],show:false},
-    {id:7,name:"区域7",ll:[113.123074,23.024269],show:false},
-    {id:8,name:"区域8",ll:[113.122625,23.023222],show:false},
-    {id:9,name:"区域9",ll:[113.121817,23.022606],show:false},
-    {id:10,name:"区域10",ll:[113.121781,23.025666],show:false},
-  ];
+    {id:0,name:"center",ll:bmapCenter,show:false},
+    {id:1,name:"泡泡池广场",ll:[113.104312,23.109978],show:false},
+    {id:2,name:"季华路沿线",ll:[113.104268,23.017995],show:false},
+    {id:3,name:"东北门出口区",ll:[113.105772,23.020074],show:false},
+    {id:4,name:"北门出口区",ll:[113.103598,23.020747],show:false},
+    {id:5,name:"西北区",ll:[113.102237,23.020602],show:false},
+  ]
 
   //用于记录告警的信息，可查询某个区域何时告警
   //告警信息的格式
@@ -722,7 +732,7 @@
 
 
 
-    //如果判断ID是否有记录
+    //如果判断ID是否有记录(存在areaMapped中)
     if(name == "") return ;
     if(!localStorage.dashValueList) localStorage.dashValueList = "[]"
     var dashValueList = $.parseJSON(localStorage.dashValueList);
@@ -960,7 +970,7 @@
       $(".date-now").html(time);
     },1000)
   }
- 
+
   //自动请求，更新数据
   function autoRequest(){
     $.ajaxSetup({crossDomain: true, xhrFields: {withCredentials: true}});
@@ -984,8 +994,7 @@
   //初始化热地图
   //并且将echart 里面的 bmap 对象取出
   function initheatmap(myChart,hotPoints,boxPoints){
-    var p =  [113.122865,23.023341];
-    curHeatOption.bmap.center = p;
+
     myChart.setOption(curHeatOption)
 
     var ecModel = myChart._model;
@@ -1044,9 +1053,14 @@
     myChart.on("click",function(p){
       console.log("mychart click -----")
       var title = p.name,
-          id = parseInt(title.replace(/[^0-9]/ig,"")),
+          id = 0,
           content ="";
+          console.log(p);
+      //查找对应的地区名
+      for(var i =1;i<areaMapped.length;i++)
+        if(areaMapped[i].name == title) break;
 
+      id = i ;
       if(!id || id<0 && id>alertRecord.length) return ;
       content = alertRecord[id].log.reverse().join("<br>");
       showAlertModal({title:title,content:content})
@@ -1241,7 +1255,6 @@
     var dsTimeout = setTimeout(function(){
       //如果本地有数据，则使用浏览器数据
       if(localStorage.dashValueList) {
-        console.log(localStorage.dashValueList)
         dashValueList = $.parseJSON(localStorage.dashValueList)
       }
 
