@@ -126,7 +126,7 @@ a:hover{
   height:190px;
   margin-bottom:10px;
   text-align: center;
-  border:1px solid rgba(0,157,209,1);
+  border:1px solid #009dd1;
   box-shadow: 0 0  15px rgba(0,157,209,1);
 
   border-radius: 5px;

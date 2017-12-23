@@ -1160,6 +1160,8 @@
       $(".btn-group >label.btn-primary").removeClass("active");
       $(".enable-filter-group >label.btn-primary").eq(1).addClass("active");
     })
+
+    $("#heat-link").tooltip();
   })
 }
 
