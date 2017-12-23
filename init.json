@@ -1,9 +1,0 @@
-{
-    "code": 200,
-    "data": {
-        "allOnlineCount": 45,
-        "last5minCount": 0,
-        "topCount": 86
-    },
-    "msg": "处理成功"
-}

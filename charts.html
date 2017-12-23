@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- <link rel="stylesheet" href="static/lib/bootstrap/css/bootstrap.min.css"> -->
   <link rel="stylesheet" type="text/css" href="static/css/charts.css">
+  <link rel="stylesheet" href="static/css/daterangepicker.css">
 </head>
 <body>
   <ul id="myTab" class="tab-self" >
@@ -16,6 +17,7 @@
     <li><a href="#">人群属性</a></li>
     <li><a href="#">人群特征</a></li>
     <li><a href="#">客群来源</a></li>
+    <li><a href="xtj.html">实时信息</a></li>
   </ul>
 
 <!--   <div class="left-menu">
@@ -40,19 +42,25 @@
   <div  style="display:none;" class="container container-self">
     conta 3
   </div>
-  <div id="person-chart-container"  style="display:none;" class="container container-self ">
-    <div>
-    <div class="row">
+  <div id="person-chart-container"  style="display:none;position:relative" class="container container-self ">
       <br>
-    </div>
       <div class="row">
-        <ul class=" col-xs-offset-1 col-xs-offset-2 nav nav-pills">
-          <li ><a href="#">省</a></li>
-          <li><a href="#">市</a></li>
-        </ul>
+        <div class="col-xs-offset-1 col-xs-3">
+          <ul class="  nav nav-pills nav-self">
+            <li ><a href="#">省</a></li>
+            <li><a href="#">市</a></li>
+            <li><a href="#">居住区</a></li>
+            <li><a href="#">办公区</a></li>
+            <li><a href="#">商圈</a></li>
+            <li><a href="#">更多 <span class="caret"></span></a></li>
+          </ul>
+        </div>
+        <div class=" col-xs-offset-4 col-xs-2 form-group">
+          <label style="float:left;" for="startdate" class="label label-success">自定义时间</label>
+          <input style="float:left;" type="text" id="daterange" class="form-control">
+        </div>
       </div>
-    </div>
-    <div class="inner-animate-box" style="">
+    <div class="inner-animate-box" >
       <div>
           <div class="loader"></div>
           <div class='loader loader--audioWave'></div>
@@ -62,22 +70,124 @@
           <div class='loader loader--circularSquare'></div>
       </div>
     </div>
-    <div id="person-chart" style="margin:0 auto;width:60%;height:85%;position:relative;">
+    <div id="person-chart" style="margin:0 auto;width:75%;height:90%;position:relative;">
 
     </div>
   </div>
-
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button>
+  <!-- 模态框（Modal） -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">信息筛选</h4>
+              </div>
+              <div class="modal-body">
+                <label class="label label-success">性别</label>
+                <br>
+                <div class="btn-group sex-group" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input name="sex" type="radio"> 男
+                  </label>
+                  <label class="btn btn-primary">
+                    <input name="sex" type="radio" > 女
+                  </label>
+                </div>
+                <br><br>
+                <label class="label label-success">年龄段</label><br>
+                <div class="btn-group age-group" data-toggle="buttons">
+                  <label class="btn btn-primary">
+                    <input  name="age" type="radio" > 18岁以下
+                  </label>
+                  <label class="btn btn-primary active">
+                    <input   name="age" type="radio" > 18-24岁
+                  </label>
+                  <label class="btn btn-primary ">
+                    <input class="age" name="age" type="radio" > 25-34岁
+                  </label>
+                  <label class="btn btn-primary">
+                    <input class="age" name="age" type="radio"> 35-44岁
+                  </label>
+                  <label class="btn btn-primary">
+                    <input class="age" name="age" type="radio" autocomplete="off"> 45岁以上
+                  </label>
+                </div>
+                <br><br>
+                <label class="label label-success">收入</label><br>
+                <div class="btn-group income-group" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input  name="income" name="income" type="radio" >小于4K
+                  </label>
+                  <label class="btn btn-primary">
+                    <input   name="income" name="income" type="radio" > 4至10K
+                  </label>
+                  <label class="btn btn-primary ">
+                    <input name="income" name="income" type="radio" > 大于10K
+                  </label>
+                </div>
+                <br><br>
+                <label class="label label-success">文化程度</label><br>
+                <div class="btn-group edu-group" data-toggle="buttons">
+                  <label class="btn btn-primary">
+                    <input  name="edu" name="edu" type="radio" > 高中及以下
+                  </label>
+                  <label class="btn btn-primary">
+                    <input   name="edu" name="edu" type="radio" > 专科
+                  </label>
+                  <label class="btn btn-primary ">
+                    <input class="edu" name="edu" type="radio" > 本科
+                  </label>
+                  <label class="btn btn-primary active">
+                    <input class="edu" name="edu" type="radio"> 本科及以下
+                  </label>
+                  <label class="btn btn-primary">
+                    <input class="edu" name="edu" type="radio" autocomplete="off"> 本科及专科
+                  </label>
+                  <label class="btn btn-primary">
+                    <input class="edu" name="edu" type="radio" autocomplete="off"> 硕士及以上
+                  </label>
+                </div>
+                <br><br>
+                <label class="label label-success">有无小孩</label><br>
+                <div class="btn-group  had-child-group " data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input  class="hadChild" name="hadChild" type="radio" >有
+                  </label>
+                  <label class="btn btn-primary">
+                    <input   class="hadChild" name="hadChild" type="radio" > 无
+                  </label>
+                </div>
+                <br><br>
+                <div class="btn-group enable-filter-group" data-toggle="buttons">
+                  <label class="label label-success">启用筛选</label><br>
+                  <label class="btn btn-primary">
+                    <input  class="hadChild" name="hadChild" type="radio" >启用
+                  </label>
+                  <label class="btn btn-primary active">
+                    <input   class="hadChild" name="hadChild" type="radio" >禁用
+                  </label>
+                  <button id="filter-reset" class="btn btn-danger ">重置</button>
+                </div>
+              </div>
+              <div class="modal-footer">
+                  <button id="sure-btn" type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+  </div>
   <!-- <script src="static/lib/jquery/jquery-2.1.4.min.js"></script> -->
   <!-- <script src="static/lib/bootstrap/js/bootstrap.min.js"></script> -->
   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-  <!-- <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=OmnSiQFfgRDGaEMuk6PH79wSnVezypor&services=&t=20171031174121"></script> -->
-
-  <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script> -->
-
+  <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=OmnSiQFfgRDGaEMuk6PH79wSnVezypor&services=&t=20171031174121"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+  <script src="static/lib/daterange/moment.js"></script>
+  <script src="static/lib/daterange/daterangepicker.js"></script>
   <script src="static/js/charts.js"></script>
-  <script src="static/js/test.js"></script>
+
 </body>
 </html>

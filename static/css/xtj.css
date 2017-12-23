@@ -40,6 +40,7 @@ a:hover{
 .chart-close:visited{
   text-decoration: none;
 }
+
 .chart-close:hover{
   color:red;
 }
@@ -59,10 +60,16 @@ a:hover{
 
 .navbar-self{
   background-color: rgba(0,0,0,0.9) !important;
+
 }
 
 .navbar-brand{
-  overflow:hidden;
+  display: inline-block;
+  width:100%;
+  height:50px;
+  border-radius: 6px;
+  background: url("../image/logoy.png")  10px center no-repeat;
+  background-size: 80% 80%;
 }
 
 .map-box{
@@ -270,4 +277,3 @@ a:hover{
   width:100%;
   height:100%;
 }
-
